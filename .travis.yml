@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+- 8
+branches:
+  only:
+  - master
+before_script:
+- cd functions
+- npm install
+- npm run lint
+- cd ..
+- npm install -g firebase-tools
+script:
+- firebase deploy --only functions --token ${FIREBASE_TOKEN}
+deploy:
+  provider: firebase
+  token:
+    secure: "$FIREBASE_SECURE_TOKEN"
+  skip_cleanup: true
+before_install:
+- openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv
+  -in .env.enc -out .env -d
+env:
+  global:
+    secure: hsx7F/epGq9cqeXZEnzvZ/LCXqrycRw8nEyJgehoIdBUNU8ztQrpJOD5z+VukXpahPToEyhBRds06QzMYmIOchw5TzDHHJ92hbJAD+hRXw/4eTQ5oBLQcb/cJuSMiuWqJkTFAB7LdeffqPc/0O/bPmlVqjYHGCR5WI3cXMs60p2+GDWLoGzbKlz6nbELE6NAjT94l48IT9b3XjMqkq4Xi1Loj6lvbfylOS4J66OKoEc/aRErS7jCiX6r3a8rumuYYEDREj/zrrXCfGWxTYOkIKmNQTdqruUnkr7Rf7ZsKyxgo/h/nUtf61aMhxc4oZwTf+hy9SGZ0UrFF1rBSNnHT0wb3VdCCIdp7/aThXYwItwzfMVTspK0HZeJnk3WyyEasivBQdqvWDOXV5v5RqKaOVSEtQkp4f1nJS4LVw2hBIAbpH3FV00z3CCEs40CNEqDVS2jfrmol/fwRdL5lfbT8kp6m6qQavz9oOjQ8StIonGTWgfmer6rSIK1QXU0QOSE6fxFblWRhp0DAQ1AfNLmAijTzJZCVGnz0mb/q5Sx+EyTWrTmNVQjreSGbg0wJzHdjfbsTuBkKeeSMsrtgsak3WfG/mJn28j3OZK7O9A+myxdCFjJ8PKh+LNDq6mWRapb0UjFDqg6GNqkuj176GqDLYQrYXmCfKKQknJhH3p7Wec=
